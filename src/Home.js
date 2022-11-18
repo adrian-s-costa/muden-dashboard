@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ExportToCsv } from 'export-to-csv';
 
 export default function Home(){
 
@@ -12,7 +13,7 @@ export default function Home(){
         const promise = axios.get("http://localhost:5000/messages")
 
         promise.then((response)=>{
-            setMessages(response.data);
+            setMessages(response.data.reverse());
         })
 
         promise.catch((response)=>{
@@ -31,10 +32,30 @@ export default function Home(){
         setOpened(false);
     }
 
+    function generateCsv(){
+        const options = { 
+            fieldSeparator: ',',
+            quoteStrings: '"',
+            decimalSeparator: '.',
+            showLabels: true, 
+            showTitle: true,
+            title: 'Mensagens',
+            useTextFile: false,
+            useBom: true,
+            useKeysAsHeaders: true,
+        };
+
+        const csvExporter = new ExportToCsv(options);
+ 
+        csvExporter.generateCsv(messages);
+
+    }
+
     return(
         <AllDiv>
             <Header>
                 Mensagens
+                <button onClick={generateCsv} className="csvBtn">Baixar aquivos</button>
             </Header>
             <Legenda>
                 <div className="leg messageConfig">Tipo</div>
@@ -64,24 +85,24 @@ export default function Home(){
                 {data.type == "Orçamento" ?
                 <>
                     <div>
-                        <h3>Nome: {data.nome}</h3>
+                        <h3><Label>Nome:</Label> {data.nome}</h3>
                     </div>
                     <div>
-                        <h3>Telefone: {data.telefone}</h3>
+                        <h3><Label>Telefone:</Label> {data.telefone}</h3>
                     </div>
                     <div>
-                        <h3>Email: {data.email}</h3>
+                        <h3><Label>Email:</Label> {data.email}</h3>
                     </div>
                     <div>
-                        <h3>Mudança: {data.mudanca}</h3>
+                        <h3><Label>Mudança:</Label> {data.mudanca}</h3>
                     </div>
                 </>
                 :<>
                     <div>
-                        <h3>Email: {data.email}</h3>
+                        <h3><Label>Email:</Label> {data.email}</h3>
                     </div>
                     <div className="mensagem">
-                        <h3>Mensagem: {data.mensagem}</h3>
+                        <h3><Label>Mensagem:</Label> {data.mensagem}</h3>
                     </div>
                 </>}
             </PopUp>
@@ -127,11 +148,16 @@ const PopUp = styled.div`
 
     @media (max-width: 600px) {
         width: 80%;
-        margin: 5% auto; /* Will not center vertically and won't work in IE6/7. */
+        margin: 5% auto;
         left: 0;
         right: 0;
         top: 0;
     }
+`
+
+const Label = styled.span`
+    font-weight: bold;
+    color: #38bc94;
 `
 
 const AllDiv = styled.main`
@@ -212,6 +238,35 @@ const Header = styled.header`
     color: white;
     padding-left: 30px;
     font-weight: bold;
+    justify-content: space-between;
+
+    .csvBtn{
+        margin: 0px 30px;
+        border-radius: 40px;
+        width: 100px;
+        padding: 0px 10px;
+        height: auto;
+        min-height: 38px;
+        background-color: white;
+        border-width: 0px;
+        color: #38bc94;
+        font-weight: bold;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        :hover{
+            border: #38bc94;
+            border-style: solid;
+            border-color: white;
+            cursor: pointer;
+            transition: 0.5s;
+            color: white;
+            background-color: #38bc94;
+        }
+    }
 `
 
 const Legenda = styled.div`
