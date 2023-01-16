@@ -2,11 +2,8 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ExportToCsv } from 'export-to-csv';
-import { useNavigate } from 'react-router-dom';
 
 export default function Home(){
-    const navigate = useNavigate()
-
     const [data, setData] = useState({});
     const [messages, setMessages] = useState([]);
     const [opened, setOpened] = useState(false);
@@ -19,10 +16,7 @@ export default function Home(){
         })
 
         promise.catch((response)=>{
-            setMessages({
-                nome: "erro",
-                email: "erro",
-            })
+            alert("Erro ao carregar as mensagens")
         })
     }, [] );
 
@@ -48,9 +42,7 @@ export default function Home(){
         };
 
         const csvExporter = new ExportToCsv(options);
- 
         csvExporter.generateCsv(messages);
-
     }
 
     return(
