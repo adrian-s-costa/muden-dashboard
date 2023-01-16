@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import GlobalStyle from './styles/globalStyle';
 import Home from "./Home"
 import Favicon from 'react-favicon'
+import Login from './Login';
 
 export default function App(){
   return(
@@ -10,7 +11,8 @@ export default function App(){
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}/>
+          <Route path="/home" element={<Home />}/>
+          <Route path="/" element={<Login />}/>
         </Routes>
       </BrowserRouter>
     </>

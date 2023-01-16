@@ -2,8 +2,10 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { ExportToCsv } from 'export-to-csv';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home(){
+    const navigate = useNavigate()
 
     const [data, setData] = useState({});
     const [messages, setMessages] = useState([]);
