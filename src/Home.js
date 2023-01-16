@@ -10,7 +10,7 @@ export default function Home(){
     const [opened, setOpened] = useState(false);
 
     useEffect(() => {
-        const promise = axios.get("http://localhost:5000/messages")
+        const promise = axios.get("http://54.207.77.153:5000/messages")
 
         promise.then((response)=>{
             setMessages(response.data.reverse());
