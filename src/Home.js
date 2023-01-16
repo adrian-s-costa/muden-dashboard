@@ -62,7 +62,7 @@ export default function Home(){
                 <div className="leg messageConfig">Nome</div>
                 <div className="leg messageConfig">Telefone</div>
                 <div className="leg messageConfig">Email</div>
-                <div className="leg messageConfig">Mensagem</div>
+                <div className="leg messageConfig">Serviço</div>
                 <div className="leg messageConfig">Mudança</div>
             </Legenda>
             {messages.length === 0 ? <div class="lds-dual-ring"></div>:
@@ -73,7 +73,7 @@ export default function Home(){
                         <div className="leg messageConfig height">{m.nome}</div>
                         <div className="leg messageConfig height">{m.telefone}</div>
                         <div className="leg messageConfig height">{m.email}</div>
-                        <div className="leg messageConfig height">{m.mensagem}</div>
+                        <div className="leg messageConfig height">{m.servico}</div>
                         <div className="leg messageConfig height">{m.mudanca}</div>
                     </Message>
                 ))}
@@ -99,10 +99,16 @@ export default function Home(){
                 </>
                 :<>
                     <div>
+                        <h3><Label>Nome:</Label> {data.nome}</h3>
+                    </div>
+                    <div>
+                        <h3><Label>Telefone:</Label> {data.telefone}</h3>
+                    </div>
+                    <div>
                         <h3><Label>Email:</Label> {data.email}</h3>
                     </div>
-                    <div className="mensagem">
-                        <h3><Label>Mensagem:</Label> {data.mensagem}</h3>
+                    <div>
+                        <h3><Label>Serviço:</Label> {data.servico}</h3>
                     </div>
                 </>}
             </PopUp>
