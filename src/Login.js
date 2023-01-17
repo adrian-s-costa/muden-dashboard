@@ -12,7 +12,7 @@ export default function Login(){
     function setDados(event){
 
         event.preventDefault()
-        const promise = axios.post('http://localhost:5000/login', loginData)
+        const promise = axios.post('https://muden-backend.up.railway.app/login', loginData)
         
         promise.then((response) => {
             navigate('/home');
@@ -91,7 +91,7 @@ const Logo = styled.img`
     height: 125px;
 `
 const Input = styled.input`
-    width: 70%;
+    width: 90%;
     border-radius: 20px;
     border: 1px solid #38bc94;
     height: 25px;
@@ -103,7 +103,7 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-    width: 70%;
+    width: 50%;
     margin-top: 20px;
     border-radius: 40px;
     padding: 0px 10px;

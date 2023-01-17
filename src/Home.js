@@ -9,13 +9,13 @@ export default function Home(){
     const [opened, setOpened] = useState(false);
 
     useEffect(() => {
-        const promise = axios.get("http://54.207.77.153:5000/messages")
+        const promise = axios.get("https://muden-backend.up.railway.app/messages")
 
         promise.then((response)=>{
             setMessages(response.data.reverse());
         })
 
-        promise.catch((response)=>{
+        promise.catch(()=>{
             alert("Erro ao carregar as mensagens")
         })
     }, [] );
