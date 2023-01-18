@@ -40,7 +40,7 @@ export default function Login(){
 
 const FormDiv = styled.div`
     background-color: white;
-    width: 250px;
+    width: 350px;
     height: 200px;
     display: flex;
     flex-direction: column;
@@ -49,6 +49,11 @@ const FormDiv = styled.div`
     //box-shadow:  0 0 4px black;
     border-radius: 1rem;
     box-shadow: 0 0 #0000, 0 0 #0000 , 0px 5px 22px rgba(0,0,0,.15);
+
+    @media(max-width: 975px){
+        width: 250px;
+        eight: 200px;
+    }
 `
 
 const LoginMain = styled.main`
@@ -94,7 +99,7 @@ const Input = styled.input`
     width: 90%;
     border-radius: 20px;
     border: 1px solid #38bc94;
-    height: 25px;
+    height: 30px;
     padding: 0px 15px;
     font-size: 15px;
     font-style: italic;
@@ -103,7 +108,7 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-    width: 50%;
+    width: 30%;
     margin-top: 20px;
     border-radius: 40px;
     padding: 0px 10px;
