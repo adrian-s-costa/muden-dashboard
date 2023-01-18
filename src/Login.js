@@ -105,6 +105,9 @@ const Input = styled.input`
     font-style: italic;
     font-family: 'Poppins';
     background-color: lightgrey;
+    @media (max-width: 975px) {
+        height: 25px;
+    }
 `
 
 const Button = styled.button`
