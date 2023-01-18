@@ -12,7 +12,7 @@ export default function Home(){
         const promise = axios.get("https://muden-backend.up.railway.app/messages")
 
         promise.then((response)=>{
-            setMessages(response.data.reverse());
+            setMessages(response.data);
         })
 
         promise.catch(()=>{
