@@ -6,7 +6,10 @@ import { ExportToCsv } from 'export-to-csv';
 export default function Home(){
     const [data, setData] = useState({});
     const [messages, setMessages] = useState([]);
+    const [messagesFilter, setMessagesFilter] = useState([]);
+    const [messagesNormal, setMessagesNormal] = useState([]);
     const [opened, setOpened] = useState(false);
+    const [toggle3, setToggle3] = useState(1);
 
     useEffect(() => {
         const promise = axios.get("https://muden-backend.up.railway.app/messages")
@@ -16,9 +19,73 @@ export default function Home(){
         })
 
         promise.catch(()=>{
-            alert("Erro ao carregar as mensagens")
+            alert("Erro ao carregar as mensagens");
         })
     }, [] );
+
+    useEffect(() => {
+        const promise = axios.get("https://muden-backend.up.railway.app/messages")
+
+        promise.then((response)=>{
+            setMessagesNormal(response.data);
+        })
+
+        promise.catch(()=>{
+            alert("Erro ao carregar as mensagens");
+        })
+    }, [] );
+
+    useEffect(() => {
+
+        console.log(toggle3)
+
+        const promise = axios.get("https://muden-backend.up.railway.app/messages")
+
+        promise.then((response)=>{
+            setMessagesFilter(response.data);
+        })
+
+        promise.catch(()=>{
+            alert("Erro ao carregar as mensagens");
+        })
+
+        console.log(messagesFilter);
+        console.log(toggle3);
+        
+        if(toggle3>3){
+            setToggle3(1)
+        }
+
+        if(toggle3 == 3){
+            messagesFilter.sort(function (a, b) {
+                if (a.type > b.type) {
+                  return 1;
+                }
+                if (a.type < b.type) {
+                  return -1;
+                }
+                return 0;
+            })
+            setMessages(messagesFilter)
+        }
+        
+        if(toggle3 == 2){
+            messagesFilter.sort(function (a, b) {
+                if (a.type < b.type) {
+                  return 1;
+                }
+                if (a.type > b.type) {
+                  return -1;
+                }
+                return 0;
+            })
+            setMessages(messagesFilter)
+        }
+        if(toggle3 == 1){
+            setMessages(messagesNormal);
+        }
+        
+    }, [toggle3] );
 
     function showPopUp(){
         setOpened(true);
@@ -52,7 +119,7 @@ export default function Home(){
                 <button onClick={generateCsv} className="csvBtn">Baixar aquivos</button>
             </Header>
             <Legenda>
-                <div className="leg messageConfig">Tipo</div>
+                <div className="leg messageConfig type" onClick={()=>{setToggle3(toggle3+1)}}>Tipo</div>
                 <div className="leg messageConfig">Nome</div>
                 <div className="leg messageConfig">Telefone</div>
                 <div className="leg messageConfig">Email</div>
@@ -186,6 +253,10 @@ const AllDiv = styled.main`
         text-overflow: ellipsis;
         overflow: hidden;
         padding-left: 10px;
+    }
+
+    .type{
+        cursor: pointer;
     }
 
     .height{
