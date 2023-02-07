@@ -15,7 +15,7 @@ export default function Home(){
         const promise = axios.get("https://muden-backend.up.railway.app/messages")
 
         promise.then((response)=>{
-            setMessages(response.data);
+            setMessages(response.data.reverse());
         })
 
         promise.catch(()=>{
@@ -27,7 +27,7 @@ export default function Home(){
         const promise = axios.get("https://muden-backend.up.railway.app/messages")
 
         promise.then((response)=>{
-            setMessagesNormal(response.data);
+            setMessagesNormal(response.data.reverse());
         })
 
         promise.catch(()=>{
@@ -37,20 +37,15 @@ export default function Home(){
 
     useEffect(() => {
 
-        console.log(toggle3)
-
         const promise = axios.get("https://muden-backend.up.railway.app/messages")
 
         promise.then((response)=>{
-            setMessagesFilter(response.data);
+            setMessagesFilter(response.data.reverse());
         })
 
         promise.catch(()=>{
             alert("Erro ao carregar as mensagens");
         })
-
-        console.log(messagesFilter);
-        console.log(toggle3);
         
         if(toggle3>3){
             setToggle3(1)
@@ -125,6 +120,8 @@ export default function Home(){
                 <div className="leg messageConfig">Email</div>
                 <div className="leg messageConfig">Serviço</div>
                 <div className="leg messageConfig">Mudança</div>
+                <div className="leg messageConfig">Código</div>
+                <div className="leg messageConfig">Horário</div>
             </Legenda>
             {messages.length === 0 ? <div class="lds-dual-ring"></div>:
             <MessagesDiv>
@@ -136,6 +133,8 @@ export default function Home(){
                         <div className="leg messageConfig height">{m.email}</div>
                         <div className="leg messageConfig height">{m.servico}</div>
                         <div className="leg messageConfig height">{m.mudanca}</div>
+                        <div className="leg messageConfig height">{m.code}</div>
+                        <div className="leg messageConfig height">{m.time}</div>
                     </Message>
                 ))}
             </MessagesDiv>
@@ -157,6 +156,12 @@ export default function Home(){
                     <div>
                         <h3><Label>Mudança:</Label> {data.mudanca}</h3>
                     </div>
+                    <div>
+                        <h3><Label>Código:</Label> {data.code}</h3>
+                    </div>
+                    <div>
+                        <h3><Label>Horário:</Label> {data.time}</h3>
+                    </div>
                 </>
                 :<>
                     <div>
@@ -170,6 +175,12 @@ export default function Home(){
                     </div>
                     <div>
                         <h3><Label>Serviço:</Label> {data.servico}</h3>
+                    </div>
+                    <div>
+                        <h3><Label>Código:</Label> {data.code}</h3>
+                    </div>
+                    <div>
+                        <h3><Label>Horário:</Label> {data.time}</h3>
                     </div>
                 </>}
             </PopUp>
@@ -253,6 +264,7 @@ const AllDiv = styled.main`
         text-overflow: ellipsis;
         overflow: hidden;
         padding-left: 10px;
+        width: 12.5%;
     }
 
     .type{
@@ -345,29 +357,10 @@ const Legenda = styled.div`
     height: 70px;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     font-weight: 500;
     padding-left: 20px;
     border-bottom: 1px solid rgb(224, 224, 224);
-
-    .leg:nth-child(1){
-        width: 10%;
-    }
-
-    .leg:nth-child(2), .leg:nth-child(4), .leg:nth-child(5){
-        width: 20%;
-    }
-
-    .leg:nth-child(3){
-        width: 15%;
-    }
-
-    .leg:nth-child(5){
-        width: 22%;
-    }
-
-    .leg:nth-child(6){
-        width: 10%;
-    }
 
 
     @media (max-width: 500px) {
@@ -382,6 +375,7 @@ const Message = styled.div`
     border: 1px solid rgb(224, 224, 224);
     border-top: none;
     display: flex;
+    justify-content: space-around;
     align-items: center;
     padding-left: 10px;
 
@@ -390,30 +384,6 @@ const Message = styled.div`
         background-color: lightgray;
     }
 
-    .leg:nth-child(1){
-        width: 10%;
-    }
-
-    .leg:nth-child(2), .leg:nth-child(4), .leg:nth-child(5){
-        width: 20%;
-    }
-    
-    .leg:nth-child(5){
-        align-items: flex-start;
-        padding-top: 5px;
-    }
-
-    .leg:nth-child(3){
-        width: 15%;
-    }
-
-    .leg:nth-child(5){
-        width: 22%;
-    }
-
-    .leg:nth-child(6){
-        width: 10%;
-    }
 
     @media (max-width: 500px) {
         padding-left: 20px;
